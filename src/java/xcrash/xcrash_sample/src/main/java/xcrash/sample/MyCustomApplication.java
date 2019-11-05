@@ -97,7 +97,9 @@ public class MyCustomApplication extends Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.e("conn","getAllTombstones");
                 for(File file : TombstoneManager.getAllTombstones()) {
+                    Log.e("conn",""+file.getAbsolutePath());
                     sendThenDeleteCrashLog(file.getAbsolutePath(), null);
                 }
             }
@@ -118,6 +120,24 @@ public class MyCustomApplication extends Application {
         //       please always use this method to delete tombstone files.
         //
         //TombstoneManager.deleteTombstone(logPath);
+        File srcFile = new File(logPath);
+        if (srcFile.exists() && srcFile.isFile()) {
+            File dstFileDir = this.getApplicationContext().getExternalFilesDir("xrashConn");
+            if (!dstFileDir.exists()) {
+                Log.e("conn","dstFile: !dstFileDir.exists()");
+                dstFileDir.mkdirs();
+            }
+            Log.e("conn","srcFile.getName():"+srcFile.getName());
+            File dstFile= new File(dstFileDir.getAbsolutePath()+"/"+srcFile.getName());
+            Log.e("conn","dstFile:"+dstFile.getAbsolutePath()+",exists:"+dstFile.exists());
+//            boolean rename = srcFile.renameTo(dstFile);
+//            Log.e("conn","rename :"+rename );
+            try {
+                FileUtil.copy(srcFile,dstFile);
+            }catch (Exception e){
+                Log.e("conn","copy :"+e.toString());
+            }
+        }
     }
 
     private void debug(String logPath, String emergency) {

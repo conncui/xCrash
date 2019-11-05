@@ -43,6 +43,7 @@
 #include "xc_dl.h"
 #include "xc_jni.h"
 #include "xc_util.h"
+#include <android/log.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu-statement-expression"
@@ -54,6 +55,7 @@
 #define XC_TRACE_SIGNAL_CATCHER_TID_UNKNOWN   (-1)
 #define XC_TRACE_SIGNAL_CATCHER_THREAD_NAME   "Signal Catcher"
 #define XC_TRACE_SIGNAL_CATCHER_THREAD_SIGBLK 0x1000
+
 
 static int                              xc_trace_is_lollipop = 0;
 static pid_t                            xc_trace_signal_catcher_tid = XC_TRACE_SIGNAL_CATCHER_TID_UNLOAD;
@@ -288,7 +290,10 @@ static void *xc_trace_dumper(void *arg)
     jstring         j_pathname;
     
     (void)arg;
-    
+
+    __android_log_print(ANDROID_LOG_INFO, "lclclc", "xc_trace_dumper"); //log i类型
+
+
     pthread_detach(pthread_self());
 
     JavaVMAttachArgs attach_args = {

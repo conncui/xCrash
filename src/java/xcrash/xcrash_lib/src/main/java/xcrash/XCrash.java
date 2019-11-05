@@ -161,6 +161,7 @@ public final class XCrash {
 
         //init ANR handler (API level < 21)
         if (params.enableAnrHandler && Build.VERSION.SDK_INT < 21) {
+            android.util.Log.e("conn","AnrHandler initialize");
             AnrHandler.getInstance().initialize(
                 ctx,
                 pid,
@@ -179,6 +180,7 @@ public final class XCrash {
         //init native crash handler / ANR handler (API level >= 21)
         int r = Errno.OK;
         if (params.enableNativeCrashHandler || (params.enableAnrHandler && Build.VERSION.SDK_INT >= 21)) {
+            android.util.Log.e("conn","NativeHandler initialize");
             r = NativeHandler.getInstance().initialize(
                 ctx,
                 params.libLoader,

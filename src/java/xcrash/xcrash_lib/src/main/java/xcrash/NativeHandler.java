@@ -104,6 +104,7 @@ class NativeHandler {
 
         //init native lib
         try {
+            XCrash.getLogger().e(Util.TAG, "NativeHandler init try");
             int r = nativeInit(
                 Build.VERSION.SDK_INT,
                 Build.VERSION.RELEASE,

@@ -100,6 +100,8 @@ class AnrHandler {
                     if (path != null) {
                         String filepath = "/data/anr/" + path;
                         if (filepath.contains("trace")) {
+                            XCrash.getLogger().e(Util.TAG, "AnrHandler fileObserver onEvent "
+                                    + "*trace*");
                             handleAnr(filepath);
                         }
                     }
@@ -161,6 +163,7 @@ class AnrHandler {
         //get emergency
         String emergency = null;
         try {
+            XCrash.getLogger().e(Util.TAG, "AnrHandler getEmergency try");
             emergency = getEmergency(anrTime, trace);
         } catch (Exception e) {
             XCrash.getLogger().e(Util.TAG, "AnrHandler getEmergency failed", e);

@@ -27,6 +27,8 @@
 #include <stdint.h>
 #include <sys/types.h>
 #include <jni.h>
+#include<android/log.h>
+
 
 #ifdef __cplusplus
 extern "C" {
